@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jun  7 02:53:41 2020
+
+@author: Aaditree Jaisswal
+"""
+
+import requests
+
+url = "https://api.nasa.gov/planetary/apod?api_key=YOUR_API_KEY"
+r = requests.get(url)
+
+if r:
+    APOD = r.json()['url']
+    pic = requests.get(APOD, allow_redirects=True)
+    if  "jpg" in APOD:
+        open('path/.jpg', 'wb').write(pic.content)
+else:
+    print("Error")
+
+
+from instabot import Bot 
+
+bot = Bot() 
+
+bot.login(username = "user",  
+          password = "XXXXX")
+
+bot.upload_photo('path/.jpg',  
+           caption = "Today's Astronomy Picture of the day !")
+
+  
